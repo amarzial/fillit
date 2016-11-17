@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   tile_mgr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/18 00:17:09 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/18 00:27:04 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
-# define TILE_SIZE 20
-# define MAX_TILES 26
+#include "fillit.h"
 
-typedef struct	s_point
+void	set_topleft(t_tile	*tile)
 {
-	int	x;
-	int	y;
-}				t_point;
+	t_point	p_min;
+	t_point	*pt;
+	int		cur;
 
-typedef struct	s_tile
-{
-	t_point	dots[4];
-}				t_tile;
-
-t_tile			**get_tiles(char *filename);
-
-void			set_topleft(t_tile *tile);
-
-#endif
+	if (!tile)
+		return ;
+	p_min.x = 4;
+	p_min.y = 4;
+	cur = 0;
+	while (cur < 4)
+	{
+		pt = &tile->dots[cur++];
+		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
+		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+	}
+	cur = 0;
+	while (cur < 4)
+	{
+		tile->dots[cur].x -= p_min.x;
+		tile->dots[cur++].y -= p_min.y;
+	}
+}

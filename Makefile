@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -c -Wall -Werror -Wextra
-SRCS = file_reader.c
+SRCS = file_reader.c tile_mgr.c
 INCS = libft.h fillit.h
 SRCDIR = srcs/
 INCDIR = includes/
@@ -14,10 +14,10 @@ NAME = fillit
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) -o $(NAME) $(OBJECTS) -L./$(LIBDIR) $(LIBRARIES)
+	$(CC) -o $(NAME) test.o $(OBJECTS) -L./$(LIBDIR) $(LIBRARIES)
 
 $(OBJECTS): $(SOURCES) $(INCLUDES)
-	$(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
+	$(CC) $(CFLAGS) srcs/test.c $(SOURCES) -I./$(INCDIR)
 
 clean:
 	rm -rf $(OBJECTS)

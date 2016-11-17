@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:13:57 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/16 19:51:20 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/18 00:28:07 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static t_tile	*convert(char *tile, int size)
 	t_point	p;
 	t_tile	*ntl;
 	int		idx;
-	int		tmp;
 
 	p.y = -1;
 	idx = 0;
@@ -90,12 +89,12 @@ static t_tile	*convert(char *tile, int size)
 		while (++p.x < 4)
 			if (tile[(p.y * 5) + p.x] == '#')
 			{
-				tmp = 0;
 				ntl->dots[idx++] = p;
 			}
 	}
 	if (!hascontact(ntl->dots))
 		ft_memdel((void*)&ntl);
+	set_topleft(ntl);
 	return (ntl);
 }
 
