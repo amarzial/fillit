@@ -27,3 +27,7 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+update:
+	cp ../libft/libft.h ./includes/
+	cp ../libft/libft.a ./libs/
