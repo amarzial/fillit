@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:13:57 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/18 14:08:01 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/19 11:04:52 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static t_tile	**read_tiles(int fd)
 		{
 			if ((tiles[cnt++] = convert(buffer, b_cnt)) == 0)
 			{
-				ft_tabdel((void***)&tiles);
+				tabdel(&tiles);
 				break ;
 			}
 			b_cnt = read(fd, buffer, 1);
