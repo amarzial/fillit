@@ -6,14 +6,15 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 21:08:17 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/22 22:42:22 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-void			check(int (*grid)[GRID_SIZE], t_point *pos, t_cres *best, t_point *dots)
+void			check(int (*grid)[GRID_SIZE], t_point *pos, \
+						t_cres *best, t_point *dots)
 {
 	int		cur;
 	int		score;
@@ -48,7 +49,6 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 	int		size;
 	t_cres	best;
 	t_point	pos;
-	int		tmp;
 
 	size = -1;
 	best.score = 0;
@@ -105,41 +105,54 @@ static int		score(int *used, t_sol *minsquare, int depth)
 	return (0);
 }
 
-static void		*backtracking(int *used, int *pool, t_sol *minsize, int depth)
+static void		backtracking(int *used, int *pool, t_sol *minsize, int depth)
 {
 	int		cur;
 	int		idx;
-	int		tmp;
 
 	cur = 0;
 	idx = 0;
 	while (used[idx] >= 0)
 		idx++;
-	while (pool[cur] != -2)
+	while (pool[cur] != EOA)
 	{
-		if (pool[cur] != -1)
+		if (pool[cur] != BLANK)
 		{
 			used[idx] = pool[cur];
-			pool[cur] = -1;
-			if (score(used, minsize, depth));
+			pool[cur] = BLANK;
+			if (score(used, minsize, depth))
 				backtracking(used, pool, minsize, depth - 1);
 			pool[cur++] = used[idx];
-			used[idx] = -1;
+			used[idx] = BLANK;
 		}
 	}
 }
 
-t_point			*get_best_fit(t_tile **tiles)
+t_sol			*get_best_fit(t_tile **tiles)
 {
 	t_sol	*minsize;
 	int		*seq;
+	int		*pool;
 	int		size;
+	int		cnt;
 
 	size = tablen(tiles);
 	seq = (int*)malloc(sizeof(int) * (size + 1));
-	if (!(minsize = (t_sol*)ft_memalloc(sizeof(t_sol))))
-		return (0);
-	minsize->tiles = tiles;
-	minsize->minsize = GRID_SIZE;
-	//backtracking(seq, &minsize);
+	pool = (int*)malloc(sizeof(int) * (size + 1));
+	minsize = (t_sol*)ft_memalloc(sizeof(t_sol));
+	if (seq && pool && minsize)
+	{
+		cnt = size;
+		while (cnt + 1)
+		{
+			seq[cnt] = BLANK;
+			pool[cnt] = cnt;
+			cnt--;
+		}
+		pool[size] = EOA;
+		minsize->tiles = tiles;
+		minsize->minsize = GRID_SIZE;
+		backtracking(seq, pool, minsize, size - 1);
+	}
+	return (minsize);
 }

@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 20:18:38 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/22 22:41:07 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define GRID_SIZE 20
 # define MAX_TILES 26
 # define TILE_DOTS 4
+# define EOA -2
+# define BLANK -1
 # include "libft.h"
 
 typedef struct	s_point
@@ -32,7 +34,7 @@ typedef struct	s_tile
 typedef struct	s_sol
 {
 	int		seq[MAX_TILES];
-	size_t	minsize;
+	int		minsize;
 	t_tile	**tiles;
 }				t_sol;
 
