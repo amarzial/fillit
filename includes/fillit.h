@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 02:41:27 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 15:21:01 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define TILE_DOTS 4
 # define EOA -2
 # define BLANK -1
+# define OUT_CHARSET ".ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # include "libft.h"
 
 typedef struct	s_point

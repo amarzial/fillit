@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 03:22:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 14:57:42 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		score(const int *used, t_sol *minsquare, int depth)
 			if (grid[cur.y][cur.x] > 0)
 				max = (ft_max(cur.x, cur.y) > max) ? ft_max(cur.x, cur.y) : max;
 	}
-	if (max < minsquare->minsize)
+	if (++max < minsquare->minsize)
 	{
 		if (depth != 0)
 			return (1);
