@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/10 12:35:18 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/10 18:38:14 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	t_list	*node;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	if ((node = (t_list*)malloc(sizeof(t_list))))
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		node->content = 0;
+		node->content_size = 0;
+		node->next = 0;
+		if (content && (node->content = malloc(content_size)))
+		{
+			ft_memcpy(node->content, content, content_size);
+			node->content_size = content_size;
+		}
 	}
-	cur = 0;
-	while (cur < 4)
-	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
-	}
+	return (node);
 }

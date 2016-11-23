@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 10:53:43 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/12 19:33:25 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+char	*ft_strncat(char *dest, const char *src, size_t n)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	size_t	cur;
+	char	*tmp;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
 	cur = 0;
-	while (cur < 4)
+	tmp = dest + ft_strlen(dest);
+	while (*src && cur < n)
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		tmp[cur] = *src;
+		++cur;
+		++src;
 	}
-	cur = 0;
-	while (cur < 4)
-	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
-	}
+	tmp[cur] = '\0';
+	return (dest);
 }

@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 10:51:10 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/12 19:19:55 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	t_uc	*from;
+	t_uc	*to;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
-	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
-	}
-	cur = 0;
-	while (cur < 4)
-	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
-	}
+	from = (t_uc*)src;
+	to = (t_uc*)dest;
+	if (src + n >= dest && src < dest)
+		while (n--)
+			to[n] = from[n];
+	else
+		while (n--)
+			*to++ = *from++;
+	return (dest);
 }

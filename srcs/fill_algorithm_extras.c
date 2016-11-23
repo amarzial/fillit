@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 03:16:40 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 03:16:42 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 13:57:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 	}
 	set_tile(grid, tiles[index], index, &(best.pos));
 }
-

@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 11:55:45 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/10 20:20:11 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	char	*out;
+	size_t	index;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	out = 0;
+	if (s && (out = (char*)malloc(sizeof(char) * (ft_strlen(s) + 1))))
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		index = 0;
+		while (s[index])
+		{
+			out[index] = f(s[index]);
+			index++;
+		}
+		out[index] = '\0';
 	}
-	cur = 0;
-	while (cur < 4)
-	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
-	}
+	return (out);
 }

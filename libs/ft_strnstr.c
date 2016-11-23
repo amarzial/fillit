@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 10:54:12 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/06 10:54:13 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+char	*ft_strnstr(char *src, char *to_find, size_t len)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	size_t	outer;
+	size_t	inner;
+	int		found;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	outer = 0;
+	while (src[outer])
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		found = 1;
+		inner = 0;
+		while (to_find[inner])
+		{
+			if (outer + inner >= len)
+				return (0);
+			if (src[outer + inner] != to_find[inner])
+			{
+				found = 0;
+				break ;
+			}
+			inner++;
+		}
+		if (found)
+			return (src + outer);
+		outer++;
 	}
-	cur = 0;
-	while (cur < 4)
-	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
-	}
+	return (0);
 }

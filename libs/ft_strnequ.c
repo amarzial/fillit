@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 16:39:52 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/10 20:22:44 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
-
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	if (s1 && s2 && (*s1 == '\0' || *s2 == '\0'))
+		return (1);
+	if (n == 0 || !s1 || !s2)
+		return (0);
+	while (n-- && *s1 == *s2 && *s1 && *s2)
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		s1++;
+		s2++;
+		if (n == 0)
+			return (1);
 	}
-	cur = 0;
-	while (cur < 4)
+	if (n == 0)
 	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
+		s1--;
+		s2--;
 	}
+	if (*s1 == *s2)
+		return (1);
+	return (0);
 }

@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 10:44:54 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/12 18:50:13 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-
-void	set_topleft(t_tile *tile)
+int		ft_atoi(const char *nbr)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	unsigned int	value;
+	int				sign;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	while (*nbr == ' ' || *nbr == '\t' || *nbr == '\n' || *nbr == '\f' || \
+			*nbr == '\r' || *nbr == '\v')
+		nbr++;
+	sign = 1;
+	if (*nbr == '-' || *nbr == '+')
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		sign = *nbr == '-' ? -1 : 1;
+		nbr++;
 	}
-	cur = 0;
-	while (cur < 4)
+	value = 0;
+	while (*nbr >= '0' && *nbr <= '9')
 	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
+		value *= 10;
+		value += *nbr++ - '0';
 	}
+	return (value * sign);
 }

@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_mgr.c                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 23:57:21 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:58:28 by amarzial         ###   ########.fr       */
+/*   Created: 2016/11/06 21:02:38 by amarzial          #+#    #+#             */
+/*   Updated: 2016/11/09 19:22:18 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-void	set_topleft(t_tile *tile)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_point	p_min;
-	t_point	*pt;
-	int		cur;
+	char	digits[10];
+	int		sign;
+	int		count;
 
-	if (!tile)
-		return ;
-	p_min.x = 4;
-	p_min.y = 4;
-	cur = 0;
-	while (cur < 4)
+	sign = 1;
+	if (n == 0)
+		ft_putchar_fd('0', fd);
+	if (n < 0)
 	{
-		pt = &tile->dots[cur++];
-		p_min.x = (p_min.x < pt->x) ? p_min.x : pt->x;
-		p_min.y = (p_min.y < pt->y) ? p_min.y : pt->y;
+		sign = -1;
+		ft_putchar_fd('-', fd);
 	}
-	cur = 0;
-	while (cur < 4)
+	count = 0;
+	while (n != 0)
 	{
-		tile->dots[cur].x -= p_min.x;
-		tile->dots[cur++].y -= p_min.y;
+		digits[count] = sign * (n % 10) + '0';
+		n /= 10;
+		count += 1;
 	}
+	while (count)
+		ft_putchar_fd(digits[count-- - 1], fd);
 }
