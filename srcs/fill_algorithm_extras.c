@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 03:16:40 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 19:01:56 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 19:03:32 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ static void		check(int (*grid)[GRID_SIZE], t_point *pos, \
 	{
 		cur.x = pos->x + dots[cnt].x;
 		cur.y = pos->y + dots[cnt].y;
-		ft_putchar('(');
-		ft_putnbr(cur.y);
-		ft_putchar(',');
-		ft_putnbr(cur.x);
-		ft_putchar(')');
 		if (grid[cur.y][cur.x])
 		{
 			score = 0;
@@ -40,12 +35,6 @@ static void		check(int (*grid)[GRID_SIZE], t_point *pos, \
 			++score;
 		cnt++;
 	}
-	ft_putnbr(pos->y);
-	ft_putchar(',');
-	ft_putnbr(pos->x);
-	ft_putchar(':');
-	ft_putnbr(score);
-	ft_putchar(' ');
 	if (score > best->score)
 	{
 		best->score = score;
@@ -90,16 +79,4 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 		best.pos.y = 0;
 	}
 	set_tile(grid, tiles[index], index, &(best.pos));
-	ft_putnbr(size);
-	ft_putchar('\n');
-	int s = 0;
-	while (s<4)
-	{
-		ft_putnbr(tiles[index]->dots[s].y);
-		ft_putchar(':');
-		ft_putnbr(tiles[index]->dots[s++].x);
-		ft_putchar(' ');
-	}
-	ft_putchar('\n');
-	putgrid(grid);
 }
