@@ -6,69 +6,14 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 22:42:22 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 03:22:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-void			check(int (*grid)[GRID_SIZE], t_point *pos, \
-						t_cres *best, t_point *dots)
-{
-	int		cur;
-	int		score;
-
-	score = 0;
-	cur = 0;
-	while (cur < TILE_DOTS)
-	{
-		if (grid[pos->y + dots[cur].y][pos->x + dots[cur].x])
-			break ;
-		++score;
-	}
-	if (score > best->score)
-	{
-		best->score = score;
-		best->pos = *pos;
-	}
-}
-
-void			set_tile(int (*grid)[GRID_SIZE], t_tile *tile, \
-							int index, t_point *pos)
-{
-	int		cur;
-
-	cur = 0;
-	while (cur < TILE_DOTS)
-		grid[pos->y + tile->dots[cur].y][pos->x + tile->dots[cur].x] = index;
-}
-
-void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
-{
-	int		size;
-	t_cres	best;
-	t_point	pos;
-
-	size = -1;
-	best.score = 0;
-	best.pos.x = 0;
-	best.pos.y = 0;
-	while (++size < GRID_SIZE)
-	{
-		pos.y = -1;
-		pos.x = size;
-		while (++pos.y < size)
-			check(grid, &pos, &best, tiles[index]->dots);
-		pos.x = -1;
-		pos.y = size;
-		while (++pos.x < size + 1)
-			check(grid, &pos, &best, tiles[index]->dots);
-	}
-	set_tile(grid, tiles[index], index, &(best.pos));
-}
-
-static void		putongrid(int (*grid)[GRID_SIZE], int *used, t_tile **tiles)
+static void		ongrid(int (*grid)[GRID_SIZE], const int *used, t_tile **tiles)
 {
 	while (*used >= 0)
 	{
@@ -76,7 +21,7 @@ static void		putongrid(int (*grid)[GRID_SIZE], int *used, t_tile **tiles)
 	}
 }
 
-static int		score(int *used, t_sol *minsquare, int depth)
+static int		score(const int *used, t_sol *minsquare, int depth)
 {
 	int		grid[GRID_SIZE][GRID_SIZE];
 	int		max;
@@ -85,7 +30,7 @@ static int		score(int *used, t_sol *minsquare, int depth)
 	max = 0;
 	while (max < GRID_SIZE)
 		ft_memset(grid[max++], 0, sizeof(int) * GRID_SIZE);
-	putongrid(grid, used, minsquare->tiles);
+	ongrid(grid, used, minsquare->tiles);
 	max = 0;
 	cur.y = -1;
 	while (++cur.y < GRID_SIZE)
@@ -122,13 +67,14 @@ static void		backtracking(int *used, int *pool, t_sol *minsize, int depth)
 			pool[cur] = BLANK;
 			if (score(used, minsize, depth))
 				backtracking(used, pool, minsize, depth - 1);
-			pool[cur++] = used[idx];
+			pool[cur] = used[idx];
 			used[idx] = BLANK;
 		}
+		cur++;
 	}
 }
 
-t_sol			*get_best_fit(t_tile **tiles)
+t_sol			*get_solution(t_tile **tiles)
 {
 	t_sol	*minsize;
 	int		*seq;
@@ -140,19 +86,19 @@ t_sol			*get_best_fit(t_tile **tiles)
 	seq = (int*)malloc(sizeof(int) * (size + 1));
 	pool = (int*)malloc(sizeof(int) * (size + 1));
 	minsize = (t_sol*)ft_memalloc(sizeof(t_sol));
-	if (seq && pool && minsize)
+	if (!seq && !pool && !minsize)
+		return (0);
+	cnt = size;
+	while (cnt)
 	{
-		cnt = size;
-		while (cnt + 1)
-		{
-			seq[cnt] = BLANK;
-			pool[cnt] = cnt;
-			cnt--;
-		}
-		pool[size] = EOA;
-		minsize->tiles = tiles;
-		minsize->minsize = GRID_SIZE;
-		backtracking(seq, pool, minsize, size - 1);
+		seq[cnt - 1] = BLANK;
+		pool[cnt - 1] = cnt - 1;
+		cnt--;
 	}
+	seq[size] = BLANK;
+	pool[size] = EOA;
+	minsize->tiles = tiles;
+	minsize->minsize = GRID_SIZE;
+	backtracking(seq, pool, minsize, size - 1);
 	return (minsize);
 }

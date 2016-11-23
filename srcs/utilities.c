@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/19 10:38:35 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 15:55:32 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 02:29:04 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			tablen(t_tile **tab)
 	return (tmp - tab);
 }
 
-void		seqcpy(int *dest, int *src)
+void		seqcpy(int *dest, const int *src)
 {
 	while (*src >= 0)
 		*dest++ = *src++;

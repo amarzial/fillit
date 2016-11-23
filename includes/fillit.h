@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 22:41:07 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 02:41:27 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ typedef	struct	s_cres
 
 t_tile			**get_tiles(char *filename);
 
+t_sol			*get_solution(t_tile **tiles);
+
 void			set_topleft(t_tile *tile);
 
 void			tabdel(t_tile ***tile);
 
 int				tablen(t_tile **tab);
 
-void			seqcpy(int *dest, int *src);
+void			seqcpy(int *dest, const int *src);
+
+void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index);
 
 #endif
