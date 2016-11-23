@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 03:16:40 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 16:12:07 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 19:01:56 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,35 @@ static void		check(int (*grid)[GRID_SIZE], t_point *pos, \
 						t_cres *best, t_point *dots)
 {
 	int		score;
+	int		cnt;
+	t_point	cur;
 
 	score = 0;
-	while (score < TILE_DOTS)
+	cnt = 0;
+	while (cnt < TILE_DOTS)
 	{
-		if (grid[pos->y + dots[score].y][pos->x + dots[score].x])
+		cur.x = pos->x + dots[cnt].x;
+		cur.y = pos->y + dots[cnt].y;
+		ft_putchar('(');
+		ft_putnbr(cur.y);
+		ft_putchar(',');
+		ft_putnbr(cur.x);
+		ft_putchar(')');
+		if (grid[cur.y][cur.x])
+		{
+			score = 0;
 			break ;
-		++score;
+		}
+		if (cur.x < best->size && cur.y < best->size)
+			++score;
+		cnt++;
 	}
+	ft_putnbr(pos->y);
+	ft_putchar(',');
+	ft_putnbr(pos->x);
+	ft_putchar(':');
+	ft_putnbr(score);
+	ft_putchar(' ');
 	if (score > best->score)
 	{
 		best->score = score;
@@ -55,6 +76,7 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 	best.score = 0;
 	best.pos.x = 0;
 	best.pos.y = 0;
+	best.size = size;
 	pos.y = -1;
 	while (++pos.y < size)
 	{
@@ -68,4 +90,16 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 		best.pos.y = 0;
 	}
 	set_tile(grid, tiles[index], index, &(best.pos));
+	ft_putnbr(size);
+	ft_putchar('\n');
+	int s = 0;
+	while (s<4)
+	{
+		ft_putnbr(tiles[index]->dots[s].y);
+		ft_putchar(':');
+		ft_putnbr(tiles[index]->dots[s++].x);
+		ft_putchar(' ');
+	}
+	ft_putchar('\n');
+	putgrid(grid);
 }

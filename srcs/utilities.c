@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/19 10:38:35 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 16:13:23 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:58:18 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,25 @@ int			gridsize(int (*grid)[GRID_SIZE])
 		}
 		y++;
 	}
+	if (size == 0)
+		return (size);
 	return (size + 1);
+}
+
+void		putgrid(int (*grid)[GRID_SIZE])
+{
+	int	i = 0;
+	while (i < GRID_SIZE)
+	{
+		int	j = 0;
+		while (j < GRID_SIZE)
+		{
+			ft_putnbr(grid[i][j]);
+			ft_putchar(' ');
+			j++;
+		}
+	ft_putchar('\n');
+	i++;
+	}
+	ft_putchar('\n');
 }

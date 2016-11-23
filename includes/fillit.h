@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 15:54:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:42:27 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef	struct	s_cres
 {
 	t_point	pos;
 	int		score;
+	int		size;
 }				t_cres;
 
 t_tile			**get_tiles(char *filename);
@@ -60,5 +61,7 @@ void			seqcpy(int *dest, const int *src);
 void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index);
 
 int				gridsize(int (*grid)[GRID_SIZE]);
+
+void			putgrid(int (*grid)[GRID_SIZE]);
 
 #endif
