@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 03:16:40 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 13:57:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 16:12:07 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,21 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index)
 	t_cres	best;
 	t_point	pos;
 
-	size = -1;
+	size = gridsize(grid);
 	best.score = 0;
 	best.pos.x = 0;
 	best.pos.y = 0;
-	while (++size < GRID_SIZE)
+	pos.y = -1;
+	while (++pos.y < size)
 	{
-		pos.y = -1;
-		pos.x = size;
-		while (++pos.y < size)
-			check(grid, &pos, &best, tiles[index]->dots);
 		pos.x = -1;
-		pos.y = size;
-		while (++pos.x < size + 1)
+		while (++pos.x < size)
 			check(grid, &pos, &best, tiles[index]->dots);
+	}
+	if (best.score == 0)
+	{
+		best.pos.x = size;
+		best.pos.y = 0;
 	}
 	set_tile(grid, tiles[index], index, &(best.pos));
 }

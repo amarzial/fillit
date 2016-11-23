@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/19 10:38:35 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 02:29:04 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/23 16:13:23 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,26 @@ void		seqcpy(int *dest, const int *src)
 	while (*src >= 0)
 		*dest++ = *src++;
 	*dest = *src;
+}
+
+int			gridsize(int (*grid)[GRID_SIZE])
+{
+	int		size;
+	int		x;
+	int		y;
+
+	size = 0;
+	y = 0;
+	while (y < GRID_SIZE)
+	{
+		x = 0;
+		while (x < GRID_SIZE)
+		{
+			if (grid[y][x] > 0)
+				size = ft_max(size, ft_max(x, y));
+			x++;
+		}
+		y++;
+	}
+	return (size + 1);
 }
