@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 15:23:14 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 15:23:15 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 03:28:51 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	printgrid(t_sol *solution)
 
 int			main(int argc, char *argv[])
 {
-	int		cnt;
 	t_tile	**tiles;
 	t_sol	*solution;
 
@@ -49,8 +48,10 @@ int			main(int argc, char *argv[])
 		return (argc);
 	tiles = get_tiles(argv[1]);
 	if (!tiles)
+	{
+		ft_putstr("error\n");
 		return (1);
-	cnt = 0;
+	}
 	solution = get_solution(tiles);
 	printgrid(solution);
 	return (0);
