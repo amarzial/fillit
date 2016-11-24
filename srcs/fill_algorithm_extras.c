@@ -20,7 +20,7 @@ static void		check(int (*grid)[GRID_SIZE], t_point *pos, \
 	int		cnt;
 	t_point	cur;
 
-	score = 0;
+	score = 1;
 	cnt = 0;
 	while (cnt < TILE_DOTS)
 	{
@@ -31,11 +31,9 @@ static void		check(int (*grid)[GRID_SIZE], t_point *pos, \
 			score = 0;
 			break ;
 		}
-		if (cur.x < best->size && cur.y < best->size)
-			++score;
 		cnt++;
 	}
-	if (score > best->score)
+	if (score && gridsize(grid) < best->score)
 	{
 		best->score = score;
 		best->pos = *pos;

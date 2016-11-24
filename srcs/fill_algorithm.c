@@ -44,6 +44,7 @@ static int		score(const int *used, t_sol *minsquare, int depth)
 	{
 		if (depth != 0)
 			return (1);
+		putgrid(grid);
 		minsquare->minsize = max;
 		seqcpy(minsquare->seq, used);
 	}

@@ -13,7 +13,7 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 # define TILE_SIZE 20
-# define GRID_SIZE 20
+# define GRID_SIZE 10
 # define MAX_TILES 26
 # define TILE_DOTS 4
 # define EOA -2
