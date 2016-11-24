@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 15:23:14 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/24 15:56:26 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 16:08:03 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			main(int argc, char *argv[])
 	tiles = get_tiles(argv[1]);
 	if (!tiles)
 	{
-		ft_putstr_fd("error\n", 2);
+		ft_putstr_fd("error\n", 1);
 		return (1);
 	}
 	solution = get_solution(tiles);
