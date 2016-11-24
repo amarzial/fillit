@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:13:57 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/19 11:04:52 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 13:02:07 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,88 +15,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
-
-static int		isvalid(char *tile)
-{
-	int		cnt;
-	int		blocks;
-
-	cnt = 0;
-	blocks = 0;
-	while (cnt < TILE_SIZE)
-	{
-		if ((cnt + 1) % 5)
-		{
-			if (tile[cnt] == '#')
-				++blocks;
-			else if (tile[cnt] != '.')
-				return (0);
-			if (blocks > 4)
-				return (0);
-		}
-		else
-		{
-			if (tile[cnt] != '\n')
-				return (0);
-		}
-		++cnt;
-	}
-	return (1);
-}
-
-static int		hascontact(const t_point *p)
-{
-	int		cur;
-	int		cnt;
-	int		contact;
-
-	cur = -1;
-	while (++cur < 4)
-	{
-		cnt = -1;
-		contact = 0;
-		while (++cnt < 4)
-		{
-			if (cnt != cur)
-			{
-				if ((p[cur].x == p[cnt].x && (ft_abs(p[cur].y - p[cnt].y) \
-								== 1)) || (p[cur].y == p[cnt].y && \
-								(ft_abs(p[cur].x - p[cnt].x))
-								== 1))
-					contact = 1;
-			}
-		}
-		if (!contact)
-			return (0);
-	}
-	return (1);
-}
-
-static t_tile	*convert(char *tile, int size)
-{
-	t_point	p;
-	t_tile	*ntl;
-	int		idx;
-
-	p.y = -1;
-	idx = 0;
-	if (size != TILE_SIZE || !isvalid(tile) || \
-			!(ntl = (t_tile*)ft_memalloc(sizeof(t_tile))))
-		return (0);
-	while (++p.y < 4)
-	{
-		p.x = -1;
-		while (++p.x < 4)
-			if (tile[(p.y * 5) + p.x] == '#')
-			{
-				ntl->dots[idx++] = p;
-			}
-	}
-	if (!hascontact(ntl->dots))
-		ft_memdel((void*)&ntl);
-	set_topleft(ntl);
-	return (ntl);
-}
 
 static t_tile	**read_tiles(int fd)
 {
@@ -110,19 +28,18 @@ static t_tile	**read_tiles(int fd)
 		return (0);
 	while (1)
 	{
+		ft_memset(buffer, 0, TILE_SIZE);
 		if ((b_cnt = read(fd, buffer, TILE_SIZE)) > 0)
 		{
 			if ((tiles[cnt++] = convert(buffer, b_cnt)) == 0)
-			{
-				tabdel(&tiles);
-				break ;
-			}
-			b_cnt = read(fd, buffer, 1);
-			if ((b_cnt == 1 && buffer[0] == '\n'))
+				return (0);
+			if (((b_cnt = read(fd, buffer, 1)) == 1 && buffer[0] == '\n'))
 				continue ;
 		}
 		break ;
 	}
+	if (buffer[0] == 0 || b_cnt == 1)
+		return (0);
 	return (tiles);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/23 17:42:27 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 17:29:14 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ void			place(int (*grid)[GRID_SIZE], t_tile **tiles, int index);
 int				gridsize(int (*grid)[GRID_SIZE]);
 
 void			putgrid(int (*grid)[GRID_SIZE]);
+
+t_tile			*convert(char *tile, int size);
 
 #endif

@@ -1,7 +1,8 @@
 CC = gcc
 CFLAGS = -c -Wall -Werror -Wextra
 SRCS = test.c \
-	   file_reader.c tile_mgr.c utilities.c fill_algorithm.c fill_algorithm_extras.c
+	   file_reader.c tile_mgr.c utilities.c fill_algorithm.c \
+	   fill_algorithm_extras.c file_reader_extras.c
 INCS = libft.h fillit.h
 SRCDIR = ./srcs/
 INCDIR = ./includes/
@@ -23,15 +24,15 @@ $(OBJECTS): $(SOURCES) $(INCLUDES)
 	$(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
 
 $(LIBDIR)libft.a:
-	cd $(LIBDIR) && make INCLUDES=.$(INCDIR)libft.h
+	make -C $(LIBDIR) INCLUDES=.$(INCDIR)libft.h
 
 clean:
 	rm -rf $(OBJECTS)
-	cd $(LIBDIR) && make clean
+	make -C $(LIBDIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	cd $(LIBDIR) && make fclean
+	make -C $(LIBDIR) fclean
 
 re: fclean all
 
