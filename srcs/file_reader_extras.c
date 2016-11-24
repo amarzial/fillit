@@ -6,11 +6,34 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 02:37:13 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/24 03:24:31 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 12:28:39 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+t_point		g_patterns[19][4] =
+{
+	{{0, 0}, {1, 0}, {2, 0}, {3, 0}},
+	{{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+	{{0, 0}, {0, 1}, {0, 2}, {0, 3}},
+	{{0, 0}, {0, 1}, {1, 1}, {2, 1}},
+	{{0, 0}, {1, 0}, {0, 1}, {0, 2}},
+	{{0, 0}, {1, 0}, {2, 0}, {2, 1}},
+	{{1, 0}, {1, 1}, {0, 2}, {1, 2}},
+	{{2, 0}, {0, 1}, {1, 1}, {2, 1}},
+	{{0, 0}, {0, 1}, {0, 2}, {1, 2}},
+	{{0, 0}, {1, 0}, {2, 0}, {0, 1}},
+	{{0, 0}, {1, 0}, {1, 1}, {1, 2}},
+	{{1, 0}, {0, 1}, {1, 1}, {2, 1}},
+	{{0, 0}, {0, 1}, {1, 1}, {0, 2}},
+	{{0, 0}, {1, 0}, {2, 0}, {1, 1}},
+	{{1, 0}, {0, 1}, {1, 1}, {1, 2}},
+	{{1, 0}, {2, 0}, {0, 1}, {1, 1}},
+	{{0, 0}, {0, 1}, {1, 1}, {1, 2}},
+	{{0, 0}, {1, 0}, {1, 1}, {2, 1}},
+	{{1, 0}, {0, 1}, {1, 1}, {0, 2}}
+};
 
 static int		isvalid(char *tile)
 {
@@ -40,52 +63,35 @@ static int		isvalid(char *tile)
 	return (1);
 }
 
-static int		checksize(const t_point *p)
+static int	ptscmp(const t_point *p1, const t_point *p2)
 {
-	int		cur;
-	t_point	size;
-
-	cur = -1;
-	size.x = 0;
-	size.y = 0;
-	while (++cur < 4)
-	{
-		size.x = ft_max(size.x, p[cur].x);
-		size.y = ft_max(size.y, p[cur].y);
-	}
-	size.x++;
-	size.y++;
-	if ((size.x == 1 && size.y == 4) || (size.x == 2 && size.y <= 3) || \
-		(size.x == 3 && size.y == 2) || (size.x == 4 && size.y == 1))
+	if ((p1->x == p2->x) && (p1->y == p2->y))
 		return (1);
 	return (0);
 }
 
-static int		hascontact(const t_point *p)
+static int	istetrimino(const t_point *pts)
 {
-	int		cur;
-	int		cnt;
-	int		contact;
+	int	cur;
+	int	idx;
+	int	count;
 
-	cur = -1;
-	while (++cur < 4)
+	cur = 0;
+	while (cur < 19)
 	{
-		cnt = -1;
-		contact = 0;
-		while (++cnt < 4)
+		idx = 0;
+		count = 0;
+		while (idx < 4)
 		{
-			if (cnt != cur)
-			{
-				if ((p[cur].x == p[cnt].x && (ft_abs(p[cur].y - p[cnt].y) \
-								== 1)) || (p[cur].y == p[cnt].y && \
-								(ft_abs(p[cur].x - p[cnt].x)) == 1))
-					contact = 1;
-			}
+			if (ptscmp((pts + idx), (g_patterns[cur] + idx)))
+				count++;
+			idx++;
 		}
-		if (!contact)
-			return (0);
+		if (count == 4)
+			return (1);
+		cur++;
 	}
-	return (checksize(p));
+	return (0);
 }
 
 t_tile  	*convert(char *tile, int size)
@@ -109,7 +115,7 @@ t_tile  	*convert(char *tile, int size)
 			}
 	}
 	set_topleft(ntl);
-	if (!hascontact(ntl->dots))
+	if (!istetrimino(ntl->dots))
 		ft_memdel((void*)&ntl);
 	return (ntl);
 }
