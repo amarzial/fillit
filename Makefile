@@ -23,15 +23,15 @@ $(OBJECTS): $(SOURCES) $(INCLUDES)
 	$(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
 
 $(LIBDIR)libft.a:
-	cd $(LIBDIR) && make INCLUDES=.$(INCDIR)libft.h
+	make -C $(LIBDIR) INCLUDES=.$(INCDIR)libft.h
 
 clean:
 	rm -rf $(OBJECTS)
-	cd $(LIBDIR) && make clean
+	make -C $(LIBDIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	cd $(LIBDIR) && make fclean
+	make -C $(LIBDIR) fclean
 
 re: fclean all
 
