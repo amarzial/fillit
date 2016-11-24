@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 15:23:14 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/24 03:28:51 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/24 15:56:26 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,26 @@ static void	printgrid(t_sol *solution)
 	}
 }
 
+static void	showusage(int args)
+{
+	if (args == 1)
+		ft_putstr("tttt");
+}
+
 int			main(int argc, char *argv[])
 {
 	t_tile	**tiles;
 	t_sol	*solution;
 
 	if (argc != 2)
-		return (argc);
+	{
+		showusage(argc);
+		return (0);
+	}
 	tiles = get_tiles(argv[1]);
 	if (!tiles)
 	{
-		ft_putstr("error\n");
+		ft_putstr_fd("error\n", 2);
 		return (1);
 	}
 	solution = get_solution(tiles);
