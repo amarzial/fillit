@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -c -Wall -Werror -Wextra
-SRCS = test.c \
+SRCS = main.c \
 	   file_reader.c tile_mgr.c utilities.c fill_algorithm.c \
 	   file_reader_extras.c
 INCS = libft.h fillit.h
@@ -18,10 +18,10 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(addprefix $(LIBDIR), \
 	$(subst -l,lib, $(addsuffix .a, $(LIBRARIES))))
-	@ /bin/echo -en 'Compiling \e[36;1m$(NAME)\e[0m: '
+	@ /bin/echo -n 'Compiling $(NAME): '
 	@ if $(CC) -o $(NAME) $(OBJECTS) -L./$(LIBDIR) $(LIBRARIES) ; \
-	then /bin/echo -e '\e[32;1mOK\e[0m' ; \
-	else /bin/echo -e '\e[31;1mFAILED\e[0m' ; fi
+	then echo 'OK' ; \
+	else echo 'FAILED' ; fi
 
 $(OBJECTS): $(SOURCES) $(INCLUDES)
 	@ $(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
