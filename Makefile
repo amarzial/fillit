@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -c -Wall -Werror -Wextra
 SRCS = test.c \
 	   file_reader.c tile_mgr.c utilities.c fill_algorithm.c \
-	   fill_algorithm_extras.c file_reader_extras.c
+	   file_reader_extras.c
 INCS = libft.h fillit.h
 SRCDIR = ./srcs/
 INCDIR = ./includes/

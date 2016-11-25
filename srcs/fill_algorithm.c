@@ -6,12 +6,27 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/25 16:41:49 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/25 21:37:40 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
+
+int				outofbounds(t_tile *tile, int size)
+{
+	int		cnt;
+
+	cnt = 0;
+	while (cnt < 4)
+	{
+		if ((tile->pos.x + tile->dots[cnt].x >= size) || \
+		(tile->pos.y + tile->dots[cnt].y >= size))
+			return (0);
+		cnt++;
+	}
+	return (1);
+}
 
 int				checkiffits(t_tile **tiles, int index, int size)
 {
@@ -31,20 +46,19 @@ int				checkiffits(t_tile **tiles, int index, int size)
 			pts = 0;
 			while (pts < 4)
 			{
-				if ((p.x == tile->dots[pts].x && p.y == tile->dots[pts].y) \
-				|| (tile->dots[pts].x >= size || tile->dots[pts].y >= size))
+				if (p.x == tile->dots[pts].x + tile->pos.x && \
+				p.y == tile->dots[pts].y + tile->pos.y)
 					return (0);
 				pts++;
 			}
 		}
 	}
-	return (1);
+	return (outofbounds(tile, size));
 }
 
 int				backtracking(t_tile **tiles, int index, int *size)
 {
 	t_tile	*block;
-
 	if (!tiles[index])
 		return (1);
 	block = tiles[index];
@@ -54,9 +68,9 @@ int				backtracking(t_tile **tiles, int index, int *size)
 		block->pos.x = 0;
 		while (block->pos.x < *size)
 		{
-			if (checkiffits(tiles, index, *size) && \
-			backtracking(tiles, index + 1, size))
-				return (1);
+			if (checkiffits(tiles, index, *size))
+				if(backtracking(tiles, index + 1, size))
+					return (1);
 			block->pos.x++;
 		}
 		block->pos.y++;

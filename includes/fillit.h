@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/25 15:55:00 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/25 21:39:56 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ typedef struct	s_tile
 	t_point	dots[TILE_DOTS];
 }				t_tile;
 
-typedef struct	s_sol
-{
-	int		seq[MAX_TILES];
-	int		minsize;
-	t_tile	**tiles;
-}				t_sol;
-
-typedef	struct	s_cres
-{
-	t_point	pos;
-	int		score;
-	int		size;
-}				t_cres;
-
 t_tile			**get_tiles(char *filename);
 
 void			get_solution(t_tile **tiles);
@@ -58,8 +44,6 @@ void			tabdel(t_tile ***tile);
 int				tablen(t_tile **tab);
 
 void			seqcpy(int *dest, const int *src);
-
-void			place(char (*grid)[GRID_SIZE], t_tile **tiles, int index);
 
 int				gridsize(char (*grid)[GRID_SIZE]);
 
