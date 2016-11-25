@@ -18,21 +18,24 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(addprefix $(LIBDIR), \
 	$(subst -l,lib, $(addsuffix .a, $(LIBRARIES))))
-	$(CC) -o $(NAME) $(OBJECTS) -L./$(LIBDIR) $(LIBRARIES)
+	@ /bin/echo -en 'Compiling \e[36;1m$(NAME)\e[0m: '
+	@ if $(CC) -o $(NAME) $(OBJECTS) -L./$(LIBDIR) $(LIBRARIES) ; \
+	then /bin/echo -e '\e[32;1mOK\e[0m' ; \
+	else /bin/echo -e '\e[31;1mFAILED\e[0m' ; fi
 
 $(OBJECTS): $(SOURCES) $(INCLUDES)
-	$(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
+	@ $(CC) $(CFLAGS) $(SOURCES) -I./$(INCDIR)
 
 $(LIBDIR)libft.a:
-	make -C $(LIBDIR) INCLUDES=.$(INCDIR)libft.h
+	@ make -C $(LIBDIR) INCLUDES=.$(INCDIR)libft.h
 
 clean:
-	rm -rf $(OBJECTS)
-	make -C $(LIBDIR) clean
+	@ rm -rf $(OBJECTS)
+	@ make -C $(LIBDIR) clean
 
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIBDIR) fclean
+	@ rm -f $(NAME)
+	@ make -C $(LIBDIR) fclean
 
 re: fclean all
 
@@ -42,7 +45,7 @@ update:
 	cp ../libft/Makefile ./libs/
 
 bee:
-	echo "According to all known laws \n\
+	@ echo "According to all known laws \n\
 	of aviation, \n\
 	 \n\
 	   \n\

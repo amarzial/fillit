@@ -63,7 +63,8 @@ SOURCES = ft_abs.c \
 		  ft_itoa_base.c \
 		  ft_putnbr_base.c \
 		  ft_max.c \
-		  ft_min.c
+		  ft_min.c \
+		  ft_writeendl.c
 
 INCLUDES = libft.h
 OBJECTS = $(SOURCES:.c=.o)

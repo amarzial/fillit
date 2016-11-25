@@ -6,37 +6,38 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 15:23:14 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/24 17:29:37 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:12:24 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-static void	printgrid(t_sol *solution)
+static void	printgrid(t_tile **tiles)
 {
-	int		size;
 	int		cnt;
-	int		grid[GRID_SIZE][GRID_SIZE];
+	int		idx;
+	char	grid[GRID_SIZE][GRID_SIZE];
+	t_point	dest;
 
-	size = tablen(solution->tiles);
 	cnt = 0;
 	while (cnt < GRID_SIZE)
-		ft_memset(grid[cnt++], 0, sizeof(int) * GRID_SIZE);
-	cnt = 0;
-	while (cnt < size)
-		place(grid, solution->tiles, solution->seq[cnt++]);
-	cnt = 0;
-	while (cnt < solution->minsize)
+		ft_memset(grid[cnt++], '.', GRID_SIZE);
+	cnt = -1;
+	while (tiles[++cnt])
 	{
-		size = 0;
-		while (size < solution->minsize)
+		idx = 0;
+		while (idx < 4)
 		{
-			ft_putchar(OUT_CHARSET[grid[cnt][size++]]);
+			dest.x = tiles[cnt]->pos.x + tiles[cnt]->dots[idx].x;
+			dest.y = tiles[cnt]->pos.y + tiles[cnt]->dots[idx++].y;
+			grid[dest.y][dest.x] = OUT_CHARSET[cnt];
 		}
-		ft_putchar('\n');
-		cnt++;
 	}
+	cnt = 0;
+	idx = gridsize(grid);
+	while (cnt < idx)
+		ft_writeendl(1, grid[cnt++], idx);
 }
 
 static void	showusage(int args)
@@ -50,7 +51,6 @@ static void	showusage(int args)
 int			main(int argc, char *argv[])
 {
 	t_tile	**tiles;
-	t_sol	*solution;
 
 	if (argc != 2)
 	{
@@ -63,7 +63,7 @@ int			main(int argc, char *argv[])
 		ft_putstr("error\n");
 		return (1);
 	}
-	solution = get_solution(tiles);
-	printgrid(solution);
+	get_solution(tiles);
+	printgrid(tiles);
 	return (0);
 }

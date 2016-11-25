@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 11:59:55 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/22 11:58:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:03:02 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,7 @@ void					ft_putnbr_base(int n, int base);
 int						ft_max(int a, int b);
 
 int						ft_min(int a, int b);
+
+void					ft_writeendl(int fd, char *buffer, size_t size);
 
 #endif
