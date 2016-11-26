@@ -6,14 +6,14 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/26 13:27:00 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/26 13:50:02 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-int				outofbounds(t_tile *tile, int size)
+static int		outofbounds(t_tile *tile, int size)
 {
 	int		cnt;
 
@@ -28,7 +28,7 @@ int				outofbounds(t_tile *tile, int size)
 	return (1);
 }
 
-int				checkiffits(t_tile **tiles, int index, int size)
+static int		checkiffits(t_tile **tiles, int index, int size)
 {
 	int		cnt;
 	int		pts;
@@ -56,7 +56,7 @@ int				checkiffits(t_tile **tiles, int index, int size)
 	return (outofbounds(tile, size));
 }
 
-int				backtracking(t_tile **tiles, int index, int *size)
+static int		backtracking(t_tile **tiles, int index, int *size)
 {
 	t_tile	*block;
 

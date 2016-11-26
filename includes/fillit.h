@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 17:05:34 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/25 21:39:56 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/26 13:53:01 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ t_tile			**get_tiles(char *filename);
 void			get_solution(t_tile **tiles);
 
 void			set_topleft(t_tile *tile);
-
-void			tabdel(t_tile ***tile);
-
-int				tablen(t_tile **tab);
-
-void			seqcpy(int *dest, const int *src);
 
 int				gridsize(char (*grid)[GRID_SIZE]);
 
