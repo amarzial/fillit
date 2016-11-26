@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 18:12:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/25 21:37:40 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/26 13:27:00 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int				checkiffits(t_tile **tiles, int index, int size)
 int				backtracking(t_tile **tiles, int index, int *size)
 {
 	t_tile	*block;
+
 	if (!tiles[index])
 		return (1);
 	block = tiles[index];
@@ -69,7 +70,7 @@ int				backtracking(t_tile **tiles, int index, int *size)
 		while (block->pos.x < *size)
 		{
 			if (checkiffits(tiles, index, *size))
-				if(backtracking(tiles, index + 1, size))
+				if (backtracking(tiles, index + 1, size))
 					return (1);
 			block->pos.x++;
 		}
@@ -77,7 +78,6 @@ int				backtracking(t_tile **tiles, int index, int *size)
 	}
 	return (0);
 }
-
 
 void			get_solution(t_tile **tiles)
 {

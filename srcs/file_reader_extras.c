@@ -6,13 +6,13 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 02:37:13 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/24 12:28:39 by amarzial         ###   ########.fr       */
+/*   Updated: 2016/11/26 13:36:26 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_point		g_patterns[19][4] =
+t_point			g_patterns[19][4] =
 {
 	{{0, 0}, {1, 0}, {2, 0}, {3, 0}},
 	{{0, 0}, {1, 0}, {0, 1}, {1, 1}},
@@ -63,14 +63,14 @@ static int		isvalid(char *tile)
 	return (1);
 }
 
-static int	ptscmp(const t_point *p1, const t_point *p2)
+static int		ptscmp(const t_point *p1, const t_point *p2)
 {
 	if ((p1->x == p2->x) && (p1->y == p2->y))
 		return (1);
 	return (0);
 }
 
-static int	istetrimino(const t_point *pts)
+static int		istetrimino(const t_point *pts)
 {
 	int	cur;
 	int	idx;
@@ -94,7 +94,7 @@ static int	istetrimino(const t_point *pts)
 	return (0);
 }
 
-t_tile  	*convert(char *tile, int size)
+t_tile			*convert(char *tile, int size)
 {
 	t_point	p;
 	t_tile	*ntl;
