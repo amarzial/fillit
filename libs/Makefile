@@ -73,17 +73,22 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@ echo "Creating library..."
+	@ ar rc $(NAME) $(OBJECTS)
+	@ ranlib $(NAME)
+	@ echo "Finished"
 
 $(OBJECTS): $(SOURCES) $(INCLUDES)
-	$(CC) $(CFLAGS) $(SOURCES) -I$(dir $(INCLUDES))
+	@ echo "Compiling $(NAME)..."
+	@ $(CC) $(CFLAGS) $(SOURCES) -I$(dir $(INCLUDES))
 
 clean:
-	rm -f $(OBJECTS)
+	@ echo "Deleting object files"
+	@ rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@ echo "Deleting $(NAME)"
+	@ rm -f $(NAME)
 
 re: fclean all
 

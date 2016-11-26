@@ -30,10 +30,12 @@ $(LIBDIR)libft.a:
 	@ make -C $(LIBDIR) INCLUDES=.$(INCDIR)libft.h
 
 clean:
+	@ echo "Deleting object files"
 	@ rm -rf $(OBJECTS)
 	@ make -C $(LIBDIR) clean
 
 fclean: clean
+	@ echo "Deleting $(NAME)"
 	@ rm -f $(NAME)
 	@ make -C $(LIBDIR) fclean
 
